@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anagramas gamers somente aqui</title>
+</head>
+<body>
+    <style>
+        #divfoda {
+            width: 60vw;
+            margin: auto;
+        }
+        * {
+            background-color: rgb(12,10,10);
+            text-align: center;
+            font-family: "comic sans MS";
+            color:aliceblue;
+        }
+        .grid * {
+            margin: auto auto !important;
+        }
+        .grid {
+            margin: auto auto;
+            display: grid;
+            grid-template-columns: auto auto 20vw;
+        }
+        @media (min-width: 600px) {
+            p {
+                font-size: large;
+            }
+            input {
+                width: 20vw;
+                max-width: 180px;
+            }
+            button {
+                width: 10vw;
+                min-width: 69px;
+            }
+        }
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: auto;
+                grid-template-rows: auto auto auto;
+            }
+            button {
+                margin: auto auto;
+                width: 48vw;
+                height: 50px;
+            }
+            input {
+                width: 48vw;
+                margin: auto auto;
+            }
+        }
+    </style>
+    <div id="divfoda">
+    <p>será que as suas belas palavras são anagramas? Insira-as abaixo e descubra!</p>
+    <div class="grid">
+        <input id="word1" placeholder="palavra">
+        <input id="word2" placeholder="outra palavra">
+        <button onclick="changeImage()">descobrir</button>
+    </div>
+    <br>
+    <br>
+    <img id="imagem" src="https://pbs.twimg.com/media/FAFPgcmVcAQ639d.jpg" style="width: 100%;">
+    </div>
+    <script>
+        function wordsAreAnagrams() {
+            let w1 = document.getElementById("word1").value.split("");
+            let w2 = document.getElementById("word2").value.split("");
+            if(w1.length != w2.length) { 
+                return false;
+            }
+            for(i = 0; i < w1.length; i++) {
+                for(j = 0; j < w2.length; j++) {
+                    if(w2[j] == w1[i]) {
+                        w1[i] = null;
+                        w2[j] =  null;
+                        break;
+                    }
+                }
+            }
+            //they are only equal if both are completly null, which means they share all characters :)
+            return w1.toString()==w2.toString();
+        }
+        function changeImage() {
+            let w1 = document.getElementById("word1").value.split("");
+            let w2 = document.getElementById("word2").value.split("");
+            if(w1.length == 0 || w2.length==0) {
+                document.getElementById("imagem").src = "https://media3.giphy.com/media/Ix5Pk3cUofTLW/giphy.gif"
+                setTimeout(() => window.alert('eu disse para inserir as palavras ಠ_ಠ'),200)
+                return;
+            }
+            document.getElementById("imagem").src = wordsAreAnagrams() ? 'https://gifdb.com/images/high/fresh-prince-oh-yeah-dance-a44fqix42ltusv2g.gif' : 'https://i.pinimg.com/originals/76/7a/e2/767ae22fb9e9b08cc0c42f9ad8a467d2.gif';
+        }
+    </script>
+</body>
+</html>
